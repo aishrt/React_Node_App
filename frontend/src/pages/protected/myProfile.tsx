@@ -98,6 +98,22 @@ function MyProfile() {
     }
   };
 
+  const sendMail = async () => {
+    try {
+      const data = {
+        email: "aishraj05@gmail.com",
+        subject: "yeah kr diyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        text: "Are didi pyaas lag rahi h ",
+      };
+      const response = await axios.post(`${API_URL}/sendEmail`, data);
+      console.log(response, "email response");
+      toast.success("Email sent successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(`${error}`);
+    }
+  };
+
   return (
     <ContentLayout title="User Profile">
       {isLoading ? (
@@ -115,6 +131,7 @@ function MyProfile() {
                           <h4>
                             Hi {user?.first_name} ,welcome to your project
                           </h4>
+                          <button onClick={() => sendMail()}>sendMail</button>
                         </li>
                         <li>Email : {user?.email}</li>
                         <li>Contact : {user?.phone_number}</li>

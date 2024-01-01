@@ -5,6 +5,7 @@ import Header from "../../layout/header";
 import { Login } from "../auth/login";
 import { Register } from "../auth/register";
 import NotFound from "./notFound";
+import { ContactUs } from "./contactUs";
 
 const App = () => {
   return (
@@ -29,9 +30,8 @@ export const publicRoutes = [
       { path: "/", element: <Landing /> },
       { path: "/login", element: <Login /> },
       { path: "/not-found", element: <NotFound /> },
-
       { path: "/register", element: <Register /> },
-
+      { path: "/contact-us", element: <ContactUs /> },
       { path: "*", element: <Navigate to="/not-found" /> },
     ],
   },

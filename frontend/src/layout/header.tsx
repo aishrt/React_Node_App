@@ -55,7 +55,9 @@ function Header() {
       navigate("/");
     }
   };
-
+  const handleContact = () => {
+    navigate("/contact-us");
+  };
   const handleList = () => {
     if (token) {
       navigate("/user-list");
@@ -120,9 +122,9 @@ function Header() {
               <MenuItem onClick={() => navigate("/user-list")}>
                 <Typography textAlign="center">User List</Typography>
               </MenuItem>
-              {/* <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Read Me</Typography>
-              </MenuItem> */}
+              <MenuItem onClick={() => handleContact()}>
+                <Typography textAlign="center">Contact Us</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -152,12 +154,12 @@ function Header() {
             >
               User List
             </Button>
-            {/* <Button
-              onClick={handleCloseNavMenu}
+            <Button
+              onClick={() => handleContact()}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              Read Me
-            </Button> */}
+              Contact Us
+            </Button>
           </Box>
 
           {token ? (

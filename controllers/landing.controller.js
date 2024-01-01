@@ -1,3 +1,4 @@
+const { emailService } = require("../services");
 const catchAsync = require("../utils/catchAsync");
 
 // ---------- You can check if server is running through this api ----------
@@ -70,7 +71,47 @@ const upload = catchAsync(async (req, res) => {
   }
 });
 
+const sendMail = catchAsync(async (req, res) => {
+  try {
+    const to = req.body.email;
+    const subject = req.body.subject;
+    const text = req.body.text;
+
+    console.log(req.body, "data from user");
+
+    await emailService.sendEMail(to, subject, text);
+    return res.status(200).json({
+      status: 200,
+      message: `Email sent to ${to} the given email address!`,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 500,
+      message: "An error occurred while adding employee data",
+      error: error.message,
+      stack: error.stack,
+    });
+  }
+});
+const contactUS = catchAsync(async (req, res) => {
+  try {
+    await emailService.contactUsMail(req.body);
+    return res.status(200).json({
+      status: 200,
+      message: `Email sent to ${req.body.email} the given email address!`,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 500,
+      message: "An error occurred while adding employee data",
+      error: error.message,
+      stack: error.stack,
+    });
+  }
+});
 module.exports = {
   landing,
   upload,
+  sendMail,
+  contactUS,
 };
