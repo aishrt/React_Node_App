@@ -12,6 +12,7 @@ import { ContentLayout } from "../../layout/ContentLayout";
 import { API_URL } from "../../config";
 import userPic from "../../assets/user.png";
 import { fileUpload } from "../api/fileUpload";
+import { getUser } from "../api/getUser";
 
 function MyProfile() {
   const token = storage.getToken();
@@ -19,14 +20,10 @@ function MyProfile() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [user, setUser] = useState<any>(null);
-  const getUser = async () => {
+  const getUserdata = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/auth/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await getUser();
       setUser(response?.data);
       setLoading(false);
     } catch (error: any) {
@@ -42,7 +39,7 @@ function MyProfile() {
 
   useEffect(() => {
     if (token) {
-      getUser();
+      getUserdata();
     }
   }, [token, isUpdating]);
 
@@ -97,8 +94,6 @@ function MyProfile() {
       toast.error(`${error}`);
     }
   };
-
-
 
   return (
     <ContentLayout title="User Profile">

@@ -14,17 +14,7 @@ import FileInput from "../../components/FileInput";
 import { fileUpload } from "../api/fileUpload";
 import { ContentLayout } from "../../layout/ContentLayout";
 import { API_URL } from "../../config";
-
-interface FormData {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone_number: string;
-  password: string;
-  address?: string;
-  image?: string;
-  role?: string;
-}
+import { registerApi, registerDetails } from "../api/auth/registerApi";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -37,7 +27,7 @@ export const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<registerDetails>();
 
   const [file, setFile] = useState<any>();
 
@@ -45,24 +35,21 @@ export const Register = () => {
     setFile(file);
   };
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<registerDetails> = async (data) => {
     try {
       const roleValue = checked ? "admin" : "user";
-      let uploadedFile = null;
+      let uploadedFile = "";
 
       if (file) {
         const imgResp = await fileUpload(file);
-        uploadedFile = imgResp;
+        const imgUrl = imgResp?.toString();
+        uploadedFile = imgUrl ? imgUrl : "";
       }
-      const response = await axios.post(
-        `${API_URL}/auth/register`,
-        { ...data, role: roleValue, image: uploadedFile },
-        {
-          headers: {
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
+      const response = await registerApi({
+        ...data,
+        role: roleValue,
+        image: uploadedFile,
+      });
       const roleType = response.data.data.role === "user" ? "User" : "Admin";
       toast.success(`${roleType} registered successful!`);
       navigate("/login");
