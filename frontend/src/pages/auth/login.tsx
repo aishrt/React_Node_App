@@ -11,11 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import storage from "../../utils/storage";
 import { ContentLayout } from "../../layout/ContentLayout";
 import { API_URL } from "../../config";
-
-interface FormData {
-  email: string;
-  password: string;
-}
+import { loginApi, loginDetails } from "../api/auth/loginApi";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -23,14 +19,14 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<loginDetails>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<loginDetails> = async (data) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, data);
-      const responsemsg = response.data.message;
+      const response = await loginApi(data);
+      const responsemsg = response?.data?.message;
       toast.success(responsemsg);
-      const accessTocken = response.data?.data?.tokens?.access?.token;
+      const accessTocken = response?.data?.data?.tokens?.access?.token;
       storage.setToken(`${accessTocken}`);
       navigate("/profile");
     } catch (error: any) {
