@@ -6,7 +6,6 @@ import { Button } from "@mui/material";
 import contactImg from "../../assets/contact.jpg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 import { ContentLayout } from "../../layout/ContentLayout";
 import { API_URL } from "../../config";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
@@ -35,7 +34,6 @@ export const ContactUs = () => {
   `
   );
 
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
