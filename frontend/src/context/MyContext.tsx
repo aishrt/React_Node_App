@@ -8,3 +8,9 @@ interface MyContextProps {
 const MyContext = createContext<MyContextProps | undefined>(undefined);
 
 export default MyContext;
+
+
+//Use this in your file to access the context data
+// import { useContext } from "react";
+// import MyContext from "../context/MyContext";
+// const tocken = useContext(MyContext);
