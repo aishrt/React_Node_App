@@ -11,7 +11,7 @@ import storage from "../../utils/storage";
 import { ContentLayout } from "../../layout/ContentLayout";
 import { loginApi, loginDetails } from "../api/auth/loginApi";
 import { useContext } from "react";
-import MyContext from "../../context/MyContext";
+import { MyContext } from "../../context/MyContextProvider";
 
 export const Login = () => {
   const myContext = useContext(MyContext);
@@ -29,7 +29,7 @@ export const Login = () => {
       const responsemsg = response?.data?.message;
       toast.success(responsemsg);
       const accessTocken = response?.data?.data?.tokens?.access?.token;
-      
+
       storage.setToken(`${accessTocken}`);
       myContext?.setTokenValue(`${accessTocken}`);
 
