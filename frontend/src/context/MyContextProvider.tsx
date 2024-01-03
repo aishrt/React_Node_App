@@ -1,20 +1,24 @@
-// MyContextProvider.tsx
-import React, { ReactNode, useState } from "react";
-import MyContext from "./MyContext";
+import React, { createContext, ReactNode, useState } from "react";
 
-interface MyContextProviderProps {
-  children: ReactNode;
+// Define Types of Context Variables & Functions
+interface myContextProps {
+  token: string | null;
+  setTokenValue: (newToken: string) => void;
+  clearTokenValue: () => void;
 }
 
-const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>("");
+// Create Context
+const MyContext = createContext<myContextProps | undefined>(undefined);
 
+// Create Context Providers
+const MyContextProvider = ({ children }: { children: ReactNode }) => {
+  const [token, setToken] = useState<string | null>("");
   const setTokenValue = (newToken: string) => {
     setToken(newToken);
   };
-
   const clearTokenValue = () => {
     setToken(null);
+    console.log("Kr diaya sab clear");
   };
 
   return (
@@ -24,4 +28,4 @@ const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
   );
 };
 
-export default MyContextProvider;
+export { MyContext, MyContextProvider };

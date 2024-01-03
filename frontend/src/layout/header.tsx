@@ -15,7 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import storage from "../utils/storage";
 import { toast } from "react-toastify";
-import MyContext from "../context/MyContext";
+import { MyContext } from "../context/MyContextProvider";
 
 function Header() {
   const token = storage.getToken();
