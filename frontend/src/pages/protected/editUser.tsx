@@ -45,6 +45,7 @@ function EditUser() {
     if (id) {
       getUser();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   interface FormData {
@@ -76,7 +77,7 @@ function EditUser() {
         const imgResp = await fileUpload(file);
         uploadedFile = imgResp;
       }
-      const response = await axios.put(
+      await axios.put(
         `${API_URL}/user/update-profile/${user?.id}`,
         { ...data, image: uploadedFile },
         {
@@ -113,7 +114,7 @@ function EditUser() {
               <div className="row">
                 <div className="col-md-7 make-center">
                   <div className="imgDiv">
-                    <img src={registermg} />
+                    <img src={registermg} alt="img" />
                   </div>
                 </div>
                 <div className="col-md-5 make-center">

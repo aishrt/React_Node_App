@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import clsx from "clsx";
-import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@mui/material";
 import registermg from "../../assets/register.jpg";
@@ -13,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import FileInput from "../../components/FileInput";
 import { fileUpload } from "../api/fileUpload";
 import { ContentLayout } from "../../layout/ContentLayout";
-import { API_URL } from "../../config";
 import { registerApi, registerDetails } from "../api/auth/registerApi";
 
 export const Register = () => {

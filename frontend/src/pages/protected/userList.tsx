@@ -286,7 +286,7 @@ function UserList() {
                             {item.role === "user" ? "User" : "Admin"}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {item.role == "user" ? (
+                            {item.role === "user" ? (
                               <div className="row">
                                 <div className="col-md-6">
                                   <Button

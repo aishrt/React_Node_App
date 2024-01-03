@@ -4,16 +4,18 @@ import "./auth.css";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import login from "../../assets/login.jpg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import storage from "../../utils/storage";
 import { ContentLayout } from "../../layout/ContentLayout";
-import { API_URL } from "../../config";
 import { loginApi, loginDetails } from "../api/auth/loginApi";
+import { useContext } from "react";
+import MyContext from "../../context/MyContext";
 
 export const Login = () => {
+  const myContext = useContext(MyContext);
+
   const navigate = useNavigate();
   const {
     register,
@@ -27,7 +29,10 @@ export const Login = () => {
       const responsemsg = response?.data?.message;
       toast.success(responsemsg);
       const accessTocken = response?.data?.data?.tokens?.access?.token;
+      
       storage.setToken(`${accessTocken}`);
+      myContext?.setTokenValue(`${accessTocken}`);
+
       navigate("/profile");
     } catch (error: any) {
       if (error.response) {
