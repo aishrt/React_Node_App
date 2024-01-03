@@ -10,7 +10,7 @@ export const timeFromNow = (date: string) => (dayjs() as any).from(dayjs(date), 
 
 // These are used to format string data
 export const formatString = (str: string) => str.replace('_', ' ');
-export const formatMoney = (str: string | number) => `$ ${str}`;
+export const formatMoney = (str: string | number) => `₹ ${str}`;
 export const formatPercent = (str: string | number) => `${str} %`;
 
 // These are used to short the text if text is too long

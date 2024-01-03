@@ -74,7 +74,7 @@ function MyProfile() {
         const imgResp = await fileUpload(file);
         uploadedFile = imgResp;
       }
-      const response = await axios.put(
+      await axios.put(
         `${API_URL}/user/update-profile/${user?.id}`,
         { ...data, image: uploadedFile },
         {
@@ -101,7 +101,7 @@ function MyProfile() {
         <BackdropLoader open={true} />
       ) : (
         <>
-          {show == false ? (
+          {show === false ? (
             <div className="formDiv">
               <div className="">
                 <div className="row">
@@ -143,7 +143,7 @@ function MyProfile() {
                 <div className="row">
                   <div className="col-md-7 make-center">
                     <div className="editimgDiv">
-                      <img src={editImg} />
+                      <img src={editImg} alt="d"/>
                     </div>
                   </div>
                   <div className="col-md-5 make-center">

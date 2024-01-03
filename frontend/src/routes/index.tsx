@@ -3,9 +3,14 @@ import { publicRoutes } from "../pages/public";
 import { protectedRoutes } from "../pages/protected";
 import NotFound from "../pages/public/notFound";
 import storage from "../utils/storage";
+import { useContext } from "react";
+import MyContext from "../context/MyContext";
 
 export const AppRoutes = () => {
   const token = storage.getToken();
+  const tocken = useContext(MyContext);
+
+  console.log({ token, tocken });
 
   const commonRoutes = [
     { path: "/", element: <NotFound /> },

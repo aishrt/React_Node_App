@@ -15,9 +15,11 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import storage from "../utils/storage";
 import { toast } from "react-toastify";
+import MyContext from "../context/MyContext";
 
 function Header() {
   const token = storage.getToken();
+  const myContext = React.useContext(MyContext);
 
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -43,6 +45,7 @@ function Header() {
   };
 
   const handleLogout = () => {
+    myContext?.clearTokenValue();
     storage.clearToken();
     navigate("/login");
     toast.success("Logged out successfully!");
