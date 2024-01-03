@@ -10,11 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import storage from "../../utils/storage";
 import { ContentLayout } from "../../layout/ContentLayout";
 import { loginApi, loginDetails } from "../api/auth/loginApi";
-import { useContext } from "react";
-import { MyContext } from "../../context/MyContextProvider";
+// import { useContext } from "react";
+// import { MyContext } from "../../context/MyContextProvider";
+import { useMyStore } from "../../zustand/useZustand";
 
 export const Login = () => {
-  const myContext = useContext(MyContext);
+  // const myContext = useContext(MyContext);
+  const { setTokenValue } = useMyStore();
 
   const navigate = useNavigate();
   const {
@@ -31,7 +33,8 @@ export const Login = () => {
       const accessTocken = response?.data?.data?.tokens?.access?.token;
 
       storage.setToken(`${accessTocken}`);
-      myContext?.setTokenValue(`${accessTocken}`);
+      // myContext?.setTokenValue(`${accessTocken}`);
+      setTokenValue(`${accessTocken}`);
 
       navigate("/profile");
     } catch (error: any) {
