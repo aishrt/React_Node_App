@@ -69,6 +69,22 @@ function Header() {
     }
   };
 
+  const handleAdd = () => {
+    if (token) {
+      navigate("/add-marks");
+    } else {
+      toast.info("Login to access this page!");
+    }
+  };
+
+  const handleMarks = () => {
+    if (token) {
+      navigate("/marks-list");
+    } else {
+      toast.info("Login to access this page!");
+    }
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -128,6 +144,12 @@ function Header() {
               <MenuItem onClick={() => handleContact()}>
                 <Typography textAlign="center">Contact Us</Typography>
               </MenuItem>
+              <MenuItem onClick={() => handleAdd()}>
+                <Typography textAlign="center">Add Marks</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => handleMarks()}>
+                <Typography textAlign="center">Marks List</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -162,6 +184,18 @@ function Header() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               Contact Us
+            </Button>
+            <Button
+              onClick={() => handleAdd()}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Add Marks
+            </Button>
+            <Button
+              onClick={() => handleMarks()}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Marks List
             </Button>
           </Box>
 

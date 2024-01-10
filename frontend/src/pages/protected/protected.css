@@ -22,4 +22,6 @@
   cursor: pointer;
   color: #1976d2;
 }
-
+.markImg {
+  width: 70% !important;
+}
