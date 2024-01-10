@@ -1,15 +1,64 @@
 const catchAsync = require("../utils/catchAsync");
 const { User } = require("../models");
+const { default: mongoose } = require("mongoose");
 
 // --------------- Get User Profile Detail ------------------
+// const getProfile = catchAsync(async (req, res) => {
+//   try {
+//     const userId = req.params.id;
+//     const userDetail = await User.findById(userId);
+//     return res.status(200).json({
+//       status: "200",
+//       message: "User data fetched successfully!",
+//       data: userDetail,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       status: "500",
+//       message: "An error occurred while fetcihng user data !",
+//       error: error.message,
+//     });
+//   }
+// });
+
 const getProfile = catchAsync(async (req, res) => {
   try {
+    console.log(getProfile, "getProfile");
     const userId = req.params.id;
-    const userDetail = await User.findById(userId);
+    const userDetail = await User.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(userId),
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          image: 1,
+          first_name: 1,
+          last_name: 1,
+          address: 1,
+          phone_number: 1,
+          email: 1,
+          role: 1,
+        },
+      },
+    ]);
+
+    if (userDetail.length === 0) {
+      return res.status(404).json({
+        status: "404",
+        message: "User not found!",
+      });
+    }
+
+    // Extract the first element from the array
+    const userDetailData = userDetail[0];
+
     return res.status(200).json({
       status: "200",
       message: "User data fetched successfully!",
-      data: userDetail,
+      data: userDetailData,
     });
   } catch (error) {
     return res.status(500).json({
@@ -81,7 +130,7 @@ const getList = catchAsync(async (req, res) => {
 
   try {
     const totalCount = await User.countDocuments(query);
-  
+
     const userList = await User.find(query)
       .skip(perPage * (page - 1))
       .limit(perPage);
